@@ -1,0 +1,109 @@
+{% extends'client/dashboard.html.twig' %}
+    {% block body %}
+        <body class="g-sidenav-show bg-gray-100">
+        <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('{{ asset('client/images/bg_1.jpg') }}'); background-position-y: 50%;">
+            <span class="mask bg-primary opacity-6"></span>
+        </div>
+        {% block aside %}
+            {{ parent()}}
+        {% endblock %}
+        <div class="main-content position-relative max-height-vh-100 h-100">
+            {% block navbar %}
+                {{ parent() }}
+            {% endblock %}
+            <div class="container-fluid py-4">
+                <div class="row">
+                    <div>
+                        <div>
+                            <div class="card">
+                                <div class="card-header pb-0">
+                                    <div class="d-flex align-items-center">
+                                        <h6>Pets table</h6>
+                                        <a href="{{ path('app_services_index') }}" class="btn  bg-gradient-dark ms-auto">
+                                            Add New Service</a>
+                                    </div>
+                                </div>
+                                <div class="card-body px-0 pt-0 pb-2">
+                                    <div class="table-responsive p-0">
+                                        <table class="table align-items-center mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reservation</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pet</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Service</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">DateTime</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Duration</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for reservation in reservations %}
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="mb-0 text-sm">{{ reservation.id }}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-xs font-weight-bold mb-0">{{ reservation.pet.name }}</p>
+                                                    </td>
+                                                    <td>
+                                                        {% for service in reservation.services %}
+                                                            <p class="text-xs font-weight-bold mb-0">{{ service.name }}</p>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-success">{{ reservation.dateTime ? reservation.dateTime|date('Y-m-d') : '' }}</span>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <span class="text-secondary text-xs font-weight-bold">{{ reservation.duration }}</span>
+                                                    </td>
+                                                    <td>
+                                                        {% for service in reservation.services %}
+                                                            <p class="text-xs font-weight-bold mb-0">{{ service.price }}TND</p>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <span class="text-secondary text-xs font-weight-bold">{{ reservation.status }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn btn-primary btn-sm ms-auto">Edit</a>
+                                                        <a href="{{ path('app_reservation_delete', {'id': reservation.id}) }}" class="btn btn-info btn-sm ms-auto">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Core JS Files -->
+        <script src="{{ asset('client/reservation/assets/js/core/popper.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/core/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+        <script>
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+                var options = {
+                    damping: '0.5'
+                }
+                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        </script>
+        <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages, etc -->
+        <script src="{{ asset('client/reservation/assets/js/argon-dashboard.min.js?v=2.1.0') }}"></script>
+
+        </body>
+    {% endblock %}

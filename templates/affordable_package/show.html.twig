@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AffordablePackage{% endblock %}
+
+{% block body %}
+    <h1>AffordablePackage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ affordable_package.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ affordable_package.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ affordable_package.description }}</td>
+            </tr>
+            <tr>
+                <th>Discount</th>
+                <td>{{ affordable_package.discount }}</td>
+            </tr>
+            <tr>
+                <th>FinalPrice</th>
+                <td>{{ affordable_package.finalPrice }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_affordable_package_index') }}">back to list</a>
+
+    <a href="{{ path('app_affordable_package_edit', {'id': affordable_package.id}) }}">edit</a>
+
+    {{ include('affordable_package/_delete_form.html.twig') }}
+{% endblock %}

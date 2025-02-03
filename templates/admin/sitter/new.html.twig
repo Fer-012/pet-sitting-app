@@ -1,0 +1,11 @@
+{% extends '../../base.html.twig' %}
+
+{% block title %}New Sitter{% endblock %}
+
+{% block body %}
+    <h1>Create new Sitter</h1>
+
+    {{ include('sitter/_form.html.twig') }}
+
+    <a href="{{ path('app_sitter_index') }}">back to list</a>
+{% endblock %}

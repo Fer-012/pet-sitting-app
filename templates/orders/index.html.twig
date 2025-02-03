@@ -1,0 +1,105 @@
+{% extends'client/dashboard.html.twig' %}
+    {% block body %}
+        <body class="g-sidenav-show bg-gray-100">
+        <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('{{ asset('client/images/bg_1.jpg') }}'); background-position-y: 50%;">
+            <span class="mask bg-primary opacity-6"></span>
+        </div>
+        {% block aside %}
+            {{ parent()}}
+        {% endblock %}
+        <div class="main-content position-relative max-height-vh-100 h-100">
+            {% block navbar %}
+                {{ parent() }}
+            {% endblock %}
+            <div class="container-fluid py-4">
+                <div class="row">
+                    <div>
+                        <div>
+                            <div class="card mb-4">
+                                <div class="card-header pb-0">
+                                    <div class="d-flex align-items-center">
+                                        <a href="/pet/new" class="btn  bg-gradient-dark ms-auto">
+                                            Add Your Order</a>
+                                    </div>
+                                </div>
+                                <div style="margin-left: 10px">
+                                    <h3> Orders</h3>
+                                </div>
+                                <br>
+                                <div class="card-body px-0 pt-0 pb-2">
+                                    <div class="table-responsive p-0">
+                                        <table class="table align-items-center mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DateOrder</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for order in unconfirmedOrders %}
+                                                <tr>
+                                                    <td class="align-middle text-center text-sm">{{ order.id }}</td>
+                                                    <td class="align-middle text-center text-sm">
+                                                        {% for s in order.shop %}
+                                                            {{ s.name }}
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>{{ order.price }}</td>
+                                                    <td>{{ order.quantity }}</td>
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-success">{{ order.dateOrder|date('Y-m-d H:i:s') }}</span>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <span class="text-secondary text-xs font-weight-bold">Unconfirmed</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('app_pet_edit', {'id': order.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                        <form action="{{ path('app_orders_delete', {'id': order.id}) }}" method="post" style="display: inline;">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
+                                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="7" class="text-center">No unconfirmed orders found.</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Core JS Files -->
+        <script src="{{ asset('client/reservation/assets/js/core/popper.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/core/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+        <script>
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+                var options = {
+                    damping: '0.5'
+                }
+                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        </script>
+        <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages, etc -->
+        <script src="{{ asset('client/reservation/assets/js/argon-dashboard.min.js?v=2.1.0') }}"></script>
+
+        </body>
+    {% endblock %}

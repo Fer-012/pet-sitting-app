@@ -1,0 +1,85 @@
+{% extends'client/dashboard.html.twig' %}
+    {% block body %}
+        <body class="g-sidenav-show bg-gray-100">
+        <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('{{ asset('client/images/bg_1.jpg') }}'); background-position-y: 50%;">
+            <span class="mask bg-primary opacity-6"></span>
+        </div>
+        {% block aside %}
+            {{ parent()}}
+        {% endblock %}
+        <div class="main-content position-relative max-height-vh-100 h-100">
+            {% block navbar %}
+                {{ parent() }}
+            {% endblock %}
+            <div class="container-fluid py-4">
+                <div class="row mt-4">
+                    <div class="col-xl mb-lg-0 mb-4">
+                        <div class="card z-index-2 h-100">
+                            <div class="card-header pb-0 pt-3 bg-transparent">
+                                <h6 class="text-capitalize">Our Services</h6>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="row"> <!-- Bootstrap row for alignment -->
+                                    {% for service in services %}
+                                        <div class="col-md-3 mb-4"> <!-- Ensure proper column division -->
+                                            <div class="card shadow-none border h-100">
+                                                <div class="card-header text-sm-left text-center pt-4 pb-3 px-4">
+                                                    <h3 class="font-weight-bolder mt-3">
+                                                        {{ service.price }} TND<small class="text-sm text-secondary font-weight-bold">/ {{ service.per }}</small>
+                                                    </h3>
+                                                    <a href="{{ path('app_reservation_new', {'serviceId': service.id}) }}" class="btn btn-sm bg-gradient-dark w-100 border-radius-md mt-4 mb-2">Buy now</a>
+                                                </div>
+                                                <hr class="horizontal dark my-0">
+                                                <div class="card-body">
+                                                    <div class="d-flex pb-3">
+                                                        <div>
+                                                            <i class="fas fa-check text-success text-sm" aria-hidden="true"></i>
+                                                        </div>
+                                                        <div class="ps-3">
+                                                            <h5>{{ service.name }}</h5>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex pb-3">
+                                                        <div>
+                                                            <i class="fas fa-check text-success text-sm" aria-hidden="true"></i>
+                                                        </div>
+                                                        <div class="ps-3">
+                                                            <span class="text-sm">{{ service.description }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Core JS Files -->
+        <script src="{{ asset('client/reservation/assets/js/core/popper.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/core/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+        <script src="{{ asset('client/reservation/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+        <script>
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+                var options = {
+                    damping: '0.5'
+                }
+                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        </script>
+        <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages, etc -->
+        <script src="{{ asset('client/reservation/assets/js/argon-dashboard.min.js?v=2.1.0') }}"></script>
+
+        </body>
+    {% endblock %}
+

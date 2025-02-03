@@ -1,0 +1,42 @@
+{% extends '../../base.html.twig' %}
+
+{% block title %}Sitter{% endblock %}
+
+{% block body %}
+    <h1>Sitter</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sitter.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ sitter.name }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ sitter.password }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ sitter.role }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ sitter.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ sitter.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_sitter_index') }}">back to list</a>
+
+    <a href="{{ path('app_sitter_edit', {'id': sitter.id}) }}">edit</a>
+
+    {{ include('sitter/_delete_form.html.twig') }}
+{% endblock %}
